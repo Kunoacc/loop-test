@@ -11,8 +11,9 @@
 		display: flex;
 		align-items: center;
 
-		@include mq(tablet) {
+		@include mq(tablet-landscape) {
 			padding: 120px 0;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 125px), 50% 100%, 0 calc(100% - 125px));
 		}
 	}
 

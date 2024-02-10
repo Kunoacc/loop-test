@@ -27,6 +27,8 @@
 		@include mq(tablet-landscape) {
 			--navigation-height: 95px;
 			margin-right: -$page-padding-big;
+			left: 0;
+			right: auto;
 		}
 	}
 
