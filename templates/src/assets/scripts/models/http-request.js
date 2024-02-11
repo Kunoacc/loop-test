@@ -1,4 +1,10 @@
-export async function call (url, method = 'POST', data = false, convertDataToJSON = true) {
+export async function call (
+	url,
+	method = 'POST',
+	data = false,
+	convertDataToJSON = true,
+	headers = {},
+) {
 	const options = {
 		method,
 	};
@@ -12,7 +18,20 @@ export async function call (url, method = 'POST', data = false, convertDataToJSO
 			options.body = data;
 		}
 	}
-	const response = await fetch(url, options);
-	const res = await response.json();
-	return res;
+
+	options.headers = {
+		...options.headers,
+		...headers,
+	};
+
+	console.log(options.headers);
+
+	try {
+		const response = await fetch(url, options);
+		const res = await response.json();
+		return res;
+	} catch (e) {
+		console.error(e);
+		return { error: e.message };
+	}
 }
