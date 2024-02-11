@@ -143,4 +143,23 @@ include($root_path . '/partials/head.php');
   </div>
 </section>
 
+<section class="team">
+  <Team data-component='{"factory": "vue"}'>
+    <template #title>
+      <?php echo generate_component_headline([
+        'label' => 'Unser Team',
+        'tag' => 'h2',
+        'tag_class' => 'h2',
+        'class' => 'text-content__headline'
+      ]); ?>
+      <?php echo generate_component_headline([
+        'label' => 'Subtitle goes here',
+        'tag' => 'div',
+        'tag_class' => 'h5',
+        'class' => 'text-content__subtitle'
+      ]); ?>
+    </template>
+  </Team>
+</section>
+
 <?php include($root_path . '/partials/foot.php'); ?>
