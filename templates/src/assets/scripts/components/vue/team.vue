@@ -21,7 +21,7 @@ const gridConfig = ref(null);
 
 // reset current page on filter change
 watch(activeFilterIndex, () => {
-	currentPage.value = 0;
+	currentPage.value = 1;
 });
 </script>
 
