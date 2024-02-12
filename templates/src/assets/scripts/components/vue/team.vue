@@ -2,7 +2,7 @@
 <script setup>
 import Members from './team-members';
 import Filters from './team-filter';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import TeamGridConfig from './team-grid-config';
 
 // State variables for managing filtered state of members list
@@ -18,6 +18,11 @@ const loading = ref(true);
 
 // Fetch grid configuration from the TeamGridConfig component
 const gridConfig = ref(null);
+
+// reset current page on filter change
+watch(activeFilterIndex, () => {
+	currentPage.value = 0;
+});
 </script>
 
 <style lang="scss">
@@ -31,7 +36,7 @@ const gridConfig = ref(null);
     column-gap: 1rem;
     text-align: center;
 
-    @include mq('laptop') {
+    @include mq('tablet-landscape') {
       column-gap: 0;
       flex-direction: row;
       justify-content: space-between;
@@ -49,7 +54,7 @@ const gridConfig = ref(null);
     &-nav {
       margin-top: 2rem;
 
-      @include mq('laptop') {
+      @include mq('tablet-landscape') {
         margin-top: 0;
       }
     }
@@ -78,7 +83,6 @@ const gridConfig = ref(null);
     }
   }
 }
-
 </style>
 
 <template>
@@ -95,16 +99,15 @@ const gridConfig = ref(null);
     </div>
 
     <div class="team-content">
-        <div class="">Loading...</div>
-        <Members :filters="filters" :activeFilterIndex="activeFilterIndex" :perPage="perPage"
-            :currentPage="currentPage" :gridColumns="gridConfig" @update:loading="loading = $event" />
+      <Members :filter="filters[activeFilterIndex]" :perPage="perPage" :currentPage="currentPage"
+        :gridColumns="gridConfig" @update:loading="loading = $event" />
     </div>
 
     <div class="team-footer">
-      <TeamGridConfig @update:grid-columns="gridConfig = $event" :grid-columns="gridConfig"/>
-      <template>
-        <slot name="load" @click="() => console.log('i got clicked')"></slot>
-      </template>
+      <TeamGridConfig @update:grid-columns="gridConfig = $event" :grid-columns="gridConfig" />
+      <div class="team-footer-cta" @click.prevent="currentPage += 1">
+        <slot name="load"></slot>
+      </div>
     </div>
   </div>
 </template>

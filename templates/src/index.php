@@ -164,7 +164,8 @@ include($root_path . '/partials/head.php');
       <?php echo generate_component_button([
         'label' => 'load more',
         'class' => 'team-footer-cta',
-        'icon_right' => true,
+        'icon_right' => false,
+        'tag' => 'button',
       ]) ?>
     </template>
   </Team>

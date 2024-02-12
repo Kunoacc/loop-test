@@ -9,12 +9,8 @@ import { call } from '../../models/http-request';
 import { API_BASE_URL } from '../../constants/index';
 
 const props = defineProps({
-	filters: {
+	filter: {
 		type: Array,
-		required: true,
-	},
-	activeFilterIndex: {
-		type: Number,
 		required: true,
 	},
 	perPage: {
@@ -33,7 +29,7 @@ const props = defineProps({
 const emit = defineEmits(['update:loading']);
 
 // Destructure props
-const { activeFilterIndex, currentPage, filters, perPage, gridColumns } = toRefs(props);
+const { currentPage, filter, perPage, gridColumns } = toRefs(props);
 
 // Due to enviromnent constraints, we use JSDoc to define the type of the response.
 /**
@@ -80,7 +76,7 @@ const computeIsLastElementOnRow = (index) => {
 // Watch for changes in the active filter index, page number and per page value and fetch members accordingly
 watchEffect(async () => {
 	// Fetch members from the API
-	const data = await fetchMembers(filters.value[activeFilterIndex.value], perPage.value, currentPage.value);
+	const data = await fetchMembers(filter, perPage.value, currentPage.value);
 
 	// If the current page is 0, replace the members value with the new data, otherwise append the new data to the existing members value
 	if (currentPage.value === 0) {
@@ -92,7 +88,7 @@ watchEffect(async () => {
 
 // Fetch members on component mount, make async dependency available
 onMounted(async () => {
-	const data = await fetchMembers(filters.value[activeFilterIndex.value]);
+	const data = await fetchMembers(filter);
 	members.value = data;
 });
 </script>
