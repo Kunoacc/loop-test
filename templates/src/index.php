@@ -143,7 +143,7 @@ include($root_path . '/partials/head.php');
   </div>
 </section>
 
-<section class="team">
+<section class="team" id="team">
   <Team data-component='{"factory": "vue"}'>
     <template #title>
       <?php echo generate_component_headline([
@@ -169,6 +169,67 @@ include($root_path . '/partials/head.php');
       ]) ?>
     </template>
   </Team>
+</section>
+
+<section class="footer" id="footer">
+  <div class="footer-section">
+    <img class="footer-section__image" src="/assets/images/logo.svg" alt="Segelteam">
+    <p class="footer-section__copyright">
+      &copy; 2024. Segel-Team. Alle Rechte vorbehalten.
+    </p>
+  </div>
+  
+  <div class="footer-section footer-section--alt">
+    <div class="footer-section__links">
+      <a href="#" class="footer-section__links__item">About Us</a>
+      <a href="#" class="footer-section__links__item">Impressum</a>
+      <a href="#" class="footer-section__links__item">Gallery</a>
+      <a href="#" class="footer-section__links__item">Datenschutz</a>
+      <a href="#" class="footer-section__links__item">Crew</a>
+      <a href="#" class="footer-section__links__item">Rechtliches</a>
+      <a href="#" class="footer-section__links__item">Contact</a>
+      <a href="#" class="footer-section__links__item">Copyright</a>
+    </div>
+
+    <div class="footer-section__social">
+      <a href="#" class="footer-section__social__link">
+        <?php echo generate_component_icon([
+          'icon' => 'facebook',
+          'type' => 'inline',
+          'class' => 'footer-section__social__icon',
+          'name' => 'facebook',
+        ]) ?>
+      </a>
+      <a href="#" class="footer-section__social__link">
+        <?php echo generate_component_icon([
+          'icon' => 'instagram',
+          'type' => 'inline',
+          'class' => 'footer-section__social__icon',
+          'name'=> 'instagram',
+        ]) ?>
+      </a>
+      <a href="#" class="footer-section__social__link">
+        <?php echo generate_component_icon([
+          'icon' => 'twitter',
+          'type' => 'inline',
+          'class' => 'footer-section__social__icon',
+          'name' => 'twitter',
+        ]) ?>
+      </a>
+      <a href="#" class="footer-section__social__link">
+        <?php echo generate_component_icon([
+          'icon' => 'youtube',
+          'type' => 'inline',
+          'class' => 'footer-section__social__icon',
+          'name' => 'youtube',
+        ]) ?>
+    </div>
+
+
+    <p class="footer-section__copyright">
+      &copy; 2024. Segel-Team. Alle Rechte vorbehalten.
+    </p>
+  </div>
 </section>
 
 <?php include($root_path . '/partials/foot.php'); ?>
