@@ -77,8 +77,8 @@ watchEffect(async () => {
 	// Fetch members from the API
 	const data = await fetchMembers(filter.value, perPage.value, currentPage.value);
 
-	// If the current page is 0, replace the members value with the new data, otherwise append the new data to the existing members value
-	if (currentPage.value === 0) {
+	// If the current page is 1, replace the members value with the new data, otherwise append the new data to the existing members value
+	if (currentPage.value === 1) {
 		members.value = data;
 	} else {
 		members.value = [...members.value, ...data];
