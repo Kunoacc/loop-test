@@ -24,8 +24,6 @@ export async function call (
 		...headers,
 	};
 
-	console.log(options.headers);
-
 	try {
 		const response = await fetch(url, options);
 		const res = await response.json();
