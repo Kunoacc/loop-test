@@ -1,4 +1,4 @@
-import { listen, dispatch } from 'Models/utils/event-bus';
+import { listen, dispatch, unlisten } from 'Models/utils/event-bus';
 
 export const breakpoints = {
 	zero: 0,
@@ -18,6 +18,16 @@ export function initBreakpointWatching () {
 	listen('window-resized', () => {
 		updateActiveBreakpoints();
 	});
+}
+
+export function removeBreakpointWatching () {
+	unlisten(
+		'window-resized',
+		() => {
+			updateActiveBreakpoints();
+		},
+		true,
+	);
 }
 
 function getActiveBreakpoints () {
