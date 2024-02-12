@@ -25,19 +25,22 @@ const props = defineProps({
 		type: Number,
 		required: true,
 	},
+	gridColumns: {
+		required: true,
+	},
 });
 
 const emit = defineEmits(['update:loading']);
 
 // Destructure props
-const { activeFilterIndex, currentPage, filters, perPage } = toRefs(props);
+const { activeFilterIndex, currentPage, filters, perPage, gridColumns } = toRefs(props);
 
 // Due to enviromnent constraints, we use JSDoc to define the type of the response.
 /**
  * @typedef {Object} Member
  * @property {string} name
  * @property {string} image
- * @property {string} duty
+ * @property {string} duties
  * @property {number} id
  * @property {Array<string>} duty_slugs
  */
@@ -50,6 +53,10 @@ const members = ref([]);
 /**
  * @function fetchMembers
  * @returns {Promise<Member[]>}
+ * @param {string} filter
+ * @param {number} perPage
+ * @param {number} currentPage
+ * @description Fetches members from the API
  */
 const fetchMembers = async (filter, perPage = 5, currentPage = 0) => {
 	const url = new URL('', API_BASE_URL);
@@ -60,6 +67,14 @@ const fetchMembers = async (filter, perPage = 5, currentPage = 0) => {
 	const response = await call(url.toString(), 'GET', {}, true, { Authorization: 'Bearer 0123456789' });
 	emit('update:loading', false);
 	return response?.data?.data;
+};
+
+// Compute whether the current element is the last element on the row
+const computeIsLastElementOnRow = (index) => {
+	const match = gridColumns.value.match(/repeat\((\d+), (\d+)(px|fr)\)/);
+	if (!match) return false;
+	const [_, repeat] = match;
+	return (index + 1) % parseInt(repeat) === 0;
 };
 
 // Watch for changes in the active filter index, page number and per page value and fetch members accordingly
@@ -75,21 +90,9 @@ watchEffect(async () => {
 	}
 });
 
-// State variables for variable grid configuration
-const gridConfig = ref({
-	1: 'repeat(1, 1fr)',
-	2: 'repeat(2, 1fr)',
-	3: 'repeat(3, 1fr)',
-	4: 'repeat(4, 1fr)',
-	5: 'repeat(5, 1fr)',
-	6: 'repeat(6, 1fr)',
-});
-const gridColumns = ref(gridConfig.value[perPage.value]);
-
 // Fetch members on component mount, make async dependency available
 onMounted(async () => {
 	const data = await fetchMembers(filters.value[activeFilterIndex.value]);
-	console.log(data);
 	members.value = data;
 });
 </script>
@@ -103,7 +106,9 @@ onMounted(async () => {
 </style>
 
 <template>
+  <!-- TODO: add a loader that's toggled on loading state, not added due to time constraints -->
   <div class="members" :style="{ gridTemplateColumns: gridColumns }">
-    <Member v-for="member in members" :key="member.id" :name="member?.name" :image="member?.image" :bio="member?.duty" />
+    <Member v-for="(member, index) in members" :key="member.id" :name="member?.name" :image="member?.image"
+      :bio="member?.duties" :is-row-last="computeIsLastElementOnRow(index)" />
   </div>
 </template>

@@ -159,6 +159,14 @@ include($root_path . '/partials/head.php');
         'class' => 'text-content__subtitle'
       ]); ?>
     </template>
+
+    <template #load>
+      <?php echo generate_component_button([
+        'label' => 'load more',
+        'class' => 'team-footer-cta',
+        'icon_right' => true,
+      ]) ?>
+    </template>
   </Team>
 </section>
 
