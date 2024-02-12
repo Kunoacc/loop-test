@@ -8,7 +8,7 @@
   }
 
   &-section {
-    padding: 6.5rem 5rem;
+    padding: 5rem 5rem;
     background-color: $color-dark;
     min-height: 15rem;
     display: flex;
@@ -20,17 +20,18 @@
     @include mq('desktop') {
       justify-content: space-between;
       align-items: flex-start;
+      padding: 7.5rem 7.5rem;
     }
 
     &__image {
       width: 12rem;
 
       @include mq('tablet') {
-        width: 20rem;
+        width: 17.5rem;
       }
 
       @include mq('desktop') {
-        width: 25rem;
+        width: 20rem;
       }
     }
 
@@ -56,7 +57,7 @@
         color: $color-light;
 
         @include mq('desktop') {
-          font-size: 1.25rem;
+          font-size: 1.15rem;
         }
 
         &:hover {

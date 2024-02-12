@@ -6,12 +6,12 @@ import { ref, watch } from 'vue';
 import TeamGridConfig from './team-grid-config';
 
 // State variables for managing filtered state of members list
-const filters = ref([undefined, 'trim', 'tactic', 'helmsmann']);
+const filters = ref([undefined, 'trim', 'tactic', 'helmsman']);
 const activeFilterIndex = ref(0);
 
 // State variables for managing pagination
 const perPage = ref(5);
-const currentPage = ref(0);
+const currentPage = ref(1);
 
 // State variable for managing loading state of the members list
 const loading = ref(true);
@@ -52,7 +52,7 @@ watch(activeFilterIndex, () => {
     }
 
     &-nav {
-      margin-top: 2rem;
+      margin-top: 4rem;
 
       @include mq('tablet-landscape') {
         margin-top: 0;
@@ -61,8 +61,12 @@ watch(activeFilterIndex, () => {
   }
 
   &-content {
-    padding: 10rem 0 2rem;
+    padding: 5rem 0 2rem;
     width: 100%;
+
+    @include mq('tablet-landscape') {
+      padding: 10rem 0 2rem;
+    }
   }
 
   &-footer {
@@ -104,7 +108,7 @@ watch(activeFilterIndex, () => {
     </div>
 
     <div class="team-footer">
-      <TeamGridConfig @update:grid-columns="gridConfig = $event" :grid-columns="gridConfig" />
+      <TeamGridConfig @update:gridColumns="gridConfig = $event" :grid-columns="gridConfig" />
       <div class="team-footer-cta" @click.prevent="currentPage += 1">
         <slot name="load"></slot>
       </div>

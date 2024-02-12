@@ -10,7 +10,6 @@ import { API_BASE_URL } from '../../constants/index';
 
 const props = defineProps({
 	filter: {
-		type: Array,
 		required: true,
 	},
 	perPage: {
@@ -54,10 +53,10 @@ const members = ref([]);
  * @param {number} currentPage
  * @description Fetches members from the API
  */
-const fetchMembers = async (filter, perPage = 5, currentPage = 0) => {
+const fetchMembers = async (filter, perPage = 5, currentPage = 1) => {
 	const url = new URL('', API_BASE_URL);
-	filter && url.searchParams.set('filter', filter);
-	url.searchParams.set('per_page', perPage);
+	filter && url.searchParams.set('duty', filter);
+	url.searchParams.set('limit', perPage);
 	url.searchParams.set('page', currentPage);
 	emit('update:loading', true);
 	const response = await call(url.toString(), 'GET', {}, true, { Authorization: 'Bearer 0123456789' });
@@ -76,7 +75,7 @@ const computeIsLastElementOnRow = (index) => {
 // Watch for changes in the active filter index, page number and per page value and fetch members accordingly
 watchEffect(async () => {
 	// Fetch members from the API
-	const data = await fetchMembers(filter, perPage.value, currentPage.value);
+	const data = await fetchMembers(filter.value, perPage.value, currentPage.value);
 
 	// If the current page is 0, replace the members value with the new data, otherwise append the new data to the existing members value
 	if (currentPage.value === 0) {
@@ -88,9 +87,11 @@ watchEffect(async () => {
 
 // Fetch members on component mount, make async dependency available
 onMounted(async () => {
-	const data = await fetchMembers(filter);
+	const data = await fetchMembers(filter.value);
 	members.value = data;
 });
+
+// TODO: optionally use the URL to manage state
 </script>
 
 <style lang="scss">

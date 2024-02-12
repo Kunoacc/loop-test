@@ -4,7 +4,7 @@ import { initBreakpointWatching, currentlyActiveBreakpoints, removeBreakpointWat
 import { listen, unlisten } from '../../models/utils/event-bus';
 
 // emit the grid configuration to the parent component
-const emits = defineEmits(['update:grid-columns']);
+const emits = defineEmits(['update:gridColumns']);
 
 const props = defineProps({
 	gridColumns: {
@@ -27,8 +27,6 @@ const calculateIntitialGridSize = computed(() => {
 
 	// Find the first active breakpoint in the map
 	const matchingBreakpoint = [...activeBreakpoints.value]?.reverse().find(bp => breakpointToSizeMap[bp]);
-
-	console.log(matchingBreakpoint);
 
 	// Return the size for the matching breakpoint, or 1 as default
 	return breakpointToSizeMap[matchingBreakpoint] || 1;
