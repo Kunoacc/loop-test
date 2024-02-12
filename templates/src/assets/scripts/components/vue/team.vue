@@ -14,7 +14,7 @@ const perPage = ref(5);
 const currentPage = ref(1);
 
 // State variable for managing loading state of the members list
-const loading = ref(true);
+const loading = ref(false);
 
 // Fetch grid configuration from the TeamGridConfig component
 const gridConfig = ref(null);
@@ -45,13 +45,13 @@ watch(activeFilterIndex, () => {
       text-align: initial;
     }
 
-    &-title {
+    &__title {
       font-size: 2rem;
       font-weight: bold;
       color: $color-text-light;
     }
 
-    &-nav {
+    &__nav {
       margin-top: 4rem;
 
       @include mq('tablet-landscape') {
@@ -80,10 +80,21 @@ watch(activeFilterIndex, () => {
       justify-content: flex-end;
     }
 
-    &-cta {
+    &__cta {
       background-color: $color-text-light;
       color: $color-dark;
       align-self: center;
+
+      &:hover {
+        background-color: rgba($color: $color-light, $alpha: 0.75);
+        transition: color 0.3s;
+      }
+
+      &--loader {
+        background-color: transparent;
+        color: $color-light;
+        align-self: center;
+      }
     }
   }
 }
@@ -92,11 +103,11 @@ watch(activeFilterIndex, () => {
 <template>
   <div>
     <div class="team-header container">
-      <div class="team-header-title">
+      <div class="team-header__title">
         <slot name="title"></slot>
       </div>
 
-      <div class="team-header-nav">
+      <div class="team-header__nav">
         <Filters :filters="filters" :activeFilterIndex="activeFilterIndex"
           @update:filtered="activeFilterIndex = $event" />
       </div>
@@ -109,9 +120,10 @@ watch(activeFilterIndex, () => {
 
     <div class="team-footer">
       <TeamGridConfig @update:gridColumns="gridConfig = $event" :grid-columns="gridConfig" />
-      <div class="team-footer-cta" @click.prevent="currentPage += 1">
+      <div class="team-footer__cta" @click.prevent="currentPage += 1" v-if="!loading">
         <slot name="load"></slot>
       </div>
+      <div v-else class="team-footer__cta team-footer__cta--loader">Loading...</div>
     </div>
   </div>
 </template>

@@ -163,7 +163,7 @@ include($root_path . '/partials/head.php');
     <template #load>
       <?php echo generate_component_button([
         'label' => 'load more',
-        'class' => 'team-footer-cta',
+        'class' => 'team-footer__cta',
         'icon_right' => false,
         'tag' => 'button',
       ]) ?>
@@ -178,7 +178,7 @@ include($root_path . '/partials/head.php');
       &copy; 2024. Segel-Team. Alle Rechte vorbehalten.
     </p>
   </div>
-  
+
   <div class="footer-section footer-section--alt">
     <div class="footer-section__links">
       <a href="#" class="footer-section__links__item">About Us</a>
