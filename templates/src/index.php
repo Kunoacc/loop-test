@@ -2,7 +2,7 @@
 $root_path = $_SERVER['DOCUMENT_ROOT'];
 include($root_path . '/partials/head.php');
 ?>
-
+<!-- TODO: fix navbar styling -->
 <nav class="navigation" data-component='{ "component": "navigation" }'>
   <div class="container">
     <div class="navigation__inner">
