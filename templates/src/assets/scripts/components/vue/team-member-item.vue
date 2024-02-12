@@ -86,7 +86,7 @@ const props = defineProps({
 
 <template>
   <div class="member">
-    <img :src="props.image" :alt="props.name" class="member-image" loading="lazy" />
+    <img :data-src="props.image" :alt="props.name" class="member-image lazyload" loading="lazy" />
     <div :class="{'member-info': true, 'member-info__last': props?.isRowLast}">
       <h2 class="member-info__name">{{ props.name }}</h2>
       <p class="member-info__bio">{{ props.bio }}</p>
