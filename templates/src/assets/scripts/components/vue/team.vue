@@ -86,7 +86,7 @@ watch(activeFilterIndex, () => {
       align-self: center;
 
       &:hover {
-        background-color: rgba($color: $color-light, $alpha: 0.75);
+        background-color: rgba($color: $color-light, $alpha: 0.75) !important;
         transition: color 0.3s;
       }
 
