@@ -1,11 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import Member from './team-member-item';
-// @ts-ignore
 import { ref, toRefs, watchEffect, defineProps, defineEmits, onMounted } from 'vue';
-// @ts-ignore
 import { call } from '../../models/http-request';
-// @ts-ignore
 import { API_BASE_URL } from '../../constants/index';
 
 const props = defineProps({
