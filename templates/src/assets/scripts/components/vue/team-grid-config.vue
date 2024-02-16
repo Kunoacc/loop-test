@@ -74,7 +74,7 @@ onBeforeUnmount(() => {
   grid-template-columns: repeat(3, 1fr);
   width: min-content;
 
-  &-item {
+  &__item {
     padding: .5rem;
     cursor: pointer;
     position: relative;
@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
     font-size: 1.25rem;
     display: none;
 
-    &__active {
+    &--active {
       &::before {
         content: '';
         display: block;
@@ -97,7 +97,7 @@ onBeforeUnmount(() => {
       }
     }
 
-    &__valid {
+    &--valid {
       display: block;
     }
   }
@@ -107,9 +107,9 @@ onBeforeUnmount(() => {
 <template>
   <div class="team-grid-config">
     <button v-for="n in 6" :key="n" :class="{
-      'team-grid-config-item__active': gridConfig[n] == gridColumns,
-      'team-grid-config-item__valid': calculateGridSizeVaildity(n),
-      'team-grid-config-item': true
+      'team-grid-config__item--active': gridConfig[n] == gridColumns,
+      'team-grid-config__item--valid': calculateGridSizeVaildity(n),
+      'team-grid-config__item': true
     }" @click="emits('update:gridColumns', gridConfig[n])">
       {{ n }}
     </button>
